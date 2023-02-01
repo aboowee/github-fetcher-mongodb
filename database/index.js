@@ -3,6 +3,18 @@ mongoose.connect('mongodb://localhost/fetcher');
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
+  _id: Number,
+  username: String,
+  repoName: String,
+  repoUrl: String,
+  //numberOfForks: Number  IF ORDERING BY NUMBER
+  updatedAt: Date,
+  //If NOT updated, use created?
+  createdAt: Date,
+  starGazerCount: Number
+
+
+
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
