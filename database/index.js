@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+
+mongoose.connect('mongodb://localhost/fetcher', {useNewUrlParser: true, useUnifiedTopology: true, 'useCreateIndex': true});
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
-  _id: {type: Number, unique: true, required: true},
+  repoId: {type: Number, unique: true, required: true},
   username: {type: String, required: true},
   repoName: {type: String, required: true},
   repoUrl: {type: String, required: true},
-  description: {type: String, required: true},
+  description: {type: String, required: false},
   // updatedAt: Date,
   // createdAt: Date,
   forks: {type: Number, required: true}
@@ -21,14 +22,11 @@ let save = (dataSet) => {
   // This function should save a repo or repos to
   // the MongoDB
   dataSet.forEach((currentRepo) => {
-
-    let dataToAdd = new Repo({_id: currentRepo.id, username: currentRepo.owner.login, repoName: currentRepo.name, repoUrl: currentRepo.html_url, description: currentRepo.description, forks: currentRepo.forks})
-
-    dataToAdd.save((error) => {
+  Repo.create({repoId: currentRepo.id, username: currentRepo.owner.login, repoName: currentRepo.name, repoUrl: currentRepo.html_url, description: currentRepo.description, forks: currentRepo.forks}, (error, repo) => {
       if (error) {
-        console.log('Ran into error');
+        console.log('Could not save into database');
         return error;
-      }
+      } console.log('User and Repo added');
     })
   })
 }
