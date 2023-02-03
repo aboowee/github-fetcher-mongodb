@@ -1,6 +1,6 @@
 const express = require('express');
 const {getReposByUsername: getReposByUsername} = require('../helpers/github');
-const {Repo: Repo} = require('../database/index')
+const {find: find} = require('../database/index')
 const {save: save} = require('../database/index');
 const Promise = require('bluebird');
 
@@ -42,7 +42,7 @@ app.post('/repos', function (req, res) {
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
-  Repo.find().sort({forks: -1}).limit(25)
+  find()
   .then((repos) => {
     if (repos) {
       res.send(repos);

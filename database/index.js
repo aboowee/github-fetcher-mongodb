@@ -21,16 +21,20 @@ let save = (dataSet) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
-  dataSet.forEach((currentRepo) => {
+
+  return Promise.all(dataSet.map((currentRepo) => {
   Repo.create({repoId: currentRepo.id, username: currentRepo.owner.login, repoName: currentRepo.name, repoUrl: currentRepo.html_url, description: currentRepo.description, forks: currentRepo.forks}, (error, repo) => {
       if (error) {
         console.log('Could not save into database');
         return error;
       } console.log('User and Repo added');
     })
-  })
+  }))
 }
 
-module.exports.Repo = Repo;
+let find = () => {
+  return Repo.find().sort({forks: -1}).limit(25);
+}
 
+module.exports.find = find;
 module.exports.save = save;
