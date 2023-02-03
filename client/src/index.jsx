@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
 
 const App = () => {
-
   const [repos, setRepos] = useState([]);
 
   const search = (term) => {
@@ -28,7 +27,6 @@ const App = () => {
     })
     // .done(function(result) {
     //   console.log('Username was added:  ', result);
-
     // })
   }
 
@@ -46,10 +44,14 @@ const App = () => {
         console.log('No data:   ', error);
       }
     })
-    // .done(function(result) {
-    //   console.log('Username was added:  ', result);
-    // })
   }
+
+  useEffect(() => {
+    console.log('test');
+    fetch('/repos')
+    .then ((data) => (data.json()))
+    .then ((values) => {setRepos(values)})
+  }, []);
 
   return (
     <div>

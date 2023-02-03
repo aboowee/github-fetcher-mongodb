@@ -7,11 +7,11 @@ const RepoList = ({ repos }) => (
     {
       repos.map((repo) => {
         return(
-        <div key={repo.repoId}>
-          <li>Name: {repo.repoName}</li>
-          <li>Link to Repo: <a href={repo.repoUrl}>{repo.repoUrl}</a></li>
-          <li>Created By: {repo.username}</li>
-          <li>Forks: {repo.forks}</li>
+        <div key={repo.repoId} class='repo'>
+          <ul id='title'>{repo.repoName.toUpperCase()}</ul>
+          <ul>Link to Repo: <a href={repo.repoUrl}>{repo.repoUrl}</a></ul>
+          <ul>Created By: {repo.username.toUpperCase()}</ul>
+          <ul>Forks: {repo.forks}</ul>
         </div>
         )
       })
