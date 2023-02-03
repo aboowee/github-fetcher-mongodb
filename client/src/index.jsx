@@ -13,16 +13,14 @@ const App = () => {
     $.ajax({
       method: 'POST',
       url: '/repos',
-      dataType: 'json',
       contentType: "application/json; charset=utf-8",
       data: JSON.stringify({username: term}),
-      success: () => {
-        console.log('Username was added');
+      success: (data) => {
+        console.log('Username was added:  ', data);
         receiveData();
       },
-      error: () => {
-        console.log('Username was not added');
-        receiveData();
+      error: (xhr, status, error) => {
+        console.log('Username was not added:  ', status, error);
       }
     })
     // .done(function(result) {
@@ -47,7 +45,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    console.log('test');
+    console.log('Mounted');
     fetch('/repos')
     .then ((data) => (data.json()))
     .then ((values) => {setRepos(values)})

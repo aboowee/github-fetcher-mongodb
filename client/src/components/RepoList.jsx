@@ -7,7 +7,7 @@ const RepoList = ({ repos }) => (
     {
       repos.map((repo) => {
         return(
-        <div key={repo.repoId} class='repo'>
+        <div key={repo.repoId} className='repo'>
           <ul id='title'>{repo.repoName.toUpperCase()}</ul>
           <ul>Link to Repo: <a href={repo.repoUrl}>{repo.repoUrl}</a></ul>
           <ul>Created By: {repo.username.toUpperCase()}</ul>
