@@ -1,8 +1,10 @@
 const express = require('express');
 const {getReposByUsername: getReposByUsername} = require('../helpers/github');
+const {Repo: Repo} = require('../database/index')
 const {save: save} = require('../database/index');
+const Promise = require('bluebird');
+
 let app = express();
-const Promise = require('bluebird')
 Promise.promisify(save);
 
 
@@ -40,11 +42,18 @@ app.post('/repos', function (req, res) {
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
+  Repo.find().sort({forks: -1}).limit(25)
+  .then((repos) => {
+    if (repos) {
+      res.send(repos);
+    } else {
+      throw repos;
+    }
+   })
+   .catch((error) => {
+    res.status(500).send('No users have been added');
+   })
 
-  //Repo.find().sort(forks).limit(25)
-  //.then((repos) => {
-    //res.send(repos)
- // })
 });
 
 let port = 1128;

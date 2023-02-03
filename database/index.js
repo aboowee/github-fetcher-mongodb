@@ -31,4 +31,6 @@ let save = (dataSet) => {
   })
 }
 
+module.exports.Repo = Repo;
+
 module.exports.save = save;
