@@ -6,6 +6,7 @@ import RepoList from './components/RepoList.jsx';
 
 const App = () => {
   const [repos, setRepos] = useState([]);
+  const [reposUpdated, setUpdated] = useState(0);
 
   const search = (term) => {
     // console.log(`${term} was searched`);
@@ -16,7 +17,7 @@ const App = () => {
       contentType: "application/json; charset=utf-8",
       data: JSON.stringify({username: term}),
       success: (data) => {
-        console.log('Username was added:  ', data);
+        setUpdated(Number(data));
         receiveData();
       },
       error: (xhr, status, error) => {
@@ -55,6 +56,7 @@ const App = () => {
     <div>
       <h1>Github Fetcher</h1>
       <Search onSearch={search}/>
+      <div>{reposUpdated} new repos imported</div>
       <RepoList repos={repos}/>
     </div>
   );

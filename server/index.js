@@ -5,8 +5,6 @@ const {save: save} = require('../database/index');
 const Promise = require('bluebird');
 
 let app = express();
-Promise.promisify(save);
-
 
 // TODO - your code here!
 // Set up static file service for files in the `client/dist` directory.
@@ -28,7 +26,8 @@ app.post('/repos', function (req, res) {
     }
   })
   .then ((savedData) => {
-    res.sendStatus(200);
+    console.log(savedData.length);
+    res.send(savedData.length.toString());
   })
   .catch((error) => {
     res.sendStatus(404);
